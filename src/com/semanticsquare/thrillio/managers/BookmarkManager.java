@@ -2,6 +2,11 @@ package com.semanticsquare.thrillio.managers;
 
 import com.semanticsquare.thrillio.dao.BookmarkDao;
 import com.semanticsquare.thrillio.entities.*;
+import com.semanticsquare.thrillio.util.HttpConnect;
+import com.semanticsquare.thrillio.util.IOUtil;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class BookmarkManager {
 
@@ -65,6 +70,24 @@ public class BookmarkManager {
         UserBookmark userBookmark = new UserBookmark();
         userBookmark.setUser(user);
         userBookmark.setBookmark(bookmark);
+
+        if (bookmark instanceof WebLinks) {
+            try {
+                String url = ((WebLinks)bookmark).getUrl();
+                if (!url.endsWith(".pdf")) {
+                    String webpage = HttpConnect.download(((WebLinks)bookmark).getUrl());
+                    if (webpage != null) {
+                        IOUtil.write(webpage, bookmark.getId());
+                    }
+                }
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
 
         dao.saveUserBookmark(userBookmark);
     }

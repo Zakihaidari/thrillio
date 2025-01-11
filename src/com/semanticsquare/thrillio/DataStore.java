@@ -40,11 +40,6 @@ public class DataStore {
     }
 
     private static void loadUsers() {
-//        users[0] = UserManager.getInstance().createUser(1000, "user0@semanticsquare.com" , "test0"	,"John","M0", Gender.MALE, UserType.USER);
-//        users[1] = UserManager.getInstance().createUser(1001, "user1@semanticsquare.com" , "test1"	,"Sam","M1", Gender.MALE, UserType.USER);
-//        users[2] = UserManager.getInstance().createUser(1002, "user2@semanticsquare.com" , "test2"	,"Ali","M2", Gender.MALE, UserType.EDITOR);
-//        users[3] = UserManager.getInstance().createUser(1003, "user3@semanticsquare.com" , "test3"	,"Kim","M3", Gender.FEMALE, UserType.EDITOR);
-//        users[4] = UserManager.getInstance().createUser(1004, "user4@semanticsquare.com" , "test4"	,"Khan","M4", Gender.MALE, UserType.CHIEF_EDITOR);
 
         String [] data = new String[TOTAL_USER_COUNT];
         IOUtil.read(data, "User");
@@ -73,61 +68,6 @@ public class DataStore {
             String[] directors = values[4].split(",");
             bookmarks[1][colNum++] = BookmarkManager.getInstacne().createMovies(Long.parseLong(values[0]), values[1], "", Integer.parseInt(values[2]), cast, directors, values[5], Double.parseDouble(values[6])/*, values[7]*/);
         }
-
-//        bookmarks[1][0] = BookmarkManager.getInstacne().createMovies(
-//                3000,
-//                "Citizen Kane",
-//                "unknown",
-//                1941,
-//                new String[]{"Orson Welles", "Joseph Cotten"},
-//                new String[]{"Orson Welles"},
-//                MovieGenre.CLASSICS,
-//                8.5
-//        );
-//
-//        bookmarks[1][1] = BookmarkManager.getInstacne().createMovies(
-//                3001,
-//                "The Grapes of Wrath",
-//                "unknown",
-//                1940,
-//                new String[]{"Henry Fonda", "Jane Darwell"},
-//                new String[]{"John Ford"},
-//                MovieGenre.CLASSICS,
-//                8.2
-//        );
-//
-//        bookmarks[1][2] = BookmarkManager.getInstacne().createMovies(
-//                3002,
-//                "A Touch of Greatness",
-//                "unknown",
-//                2004,
-//                new String[]{"Albert Cullum"},
-//                new String[]{"Leslie Sullivan"},
-//                MovieGenre.DOCUMENTARIES,
-//                7.3
-//        );
-//
-//        bookmarks[1][3] = BookmarkManager.getInstacne().createMovies(
-//                3003,
-//                "The Big Bang Theory",
-//                "unknown",
-//                2007,
-//                new String[]{"Kaley Cuoco", "Jim Parsons"},
-//                new String[]{"Chuck Lorre", "Bill Prady"},
-//                MovieGenre.TV_SHOWS,
-//                8.7
-//        );
-//
-//        bookmarks[1][4] = BookmarkManager.getInstacne().createMovies(
-//                3004,
-//                "Ikiru",
-//                "unknown",
-//                1952,
-//                new String[]{"Takashi Shimura", "Minoru Chiaki"},
-//                new String[]{"Akira Kurosawa"},
-//                MovieGenre.FOREIGN_MOVIES,
-//                8.4
-//        );
     }
 
     private static void loadBooks() {
@@ -139,64 +79,7 @@ public class DataStore {
             String[] authors = values[4].split(",");
             bookmarks[2][colNum++] = BookmarkManager.getInstacne().createBooks(Long.parseLong(values[0]), values[1], Integer.parseInt(values[2]), values[3], authors, values[5], Double.parseDouble(values[6])/*, values[7]*/ );
         }
-//        bookmarks[2][0] = BookmarkManager.getInstacne().createBooks(
-//                4000,
-//                "Walden",
-//                "unknown",
-//                1854,
-//                "Wilder Publications",
-//                new String[]{"Henry David Thoreau"},
-//                BookGenre.PHILOSOPHY,
-//                4.3
-//        );
-//
-//        bookmarks[2][1] = BookmarkManager.getInstacne().createBooks(
-//                4001,
-//                "Self-Reliance and Other Essays",
-//                "unknown",
-//                1993,
-//                "Dover Publications",
-//                new String[]{"Ralph Waldo Emerson"},
-//                BookGenre.PHILOSOPHY,
-//                4.5
-//        );
-//
-//        bookmarks[2][2] = BookmarkManager.getInstacne().createBooks(
-//                4002,
-//                "Light From Many Lamps",
-//                "unknown",
-//                1988,
-//                "Touchstone",
-//                new String[]{"Lillian Eichler Watson"},
-//                BookGenre.PHILOSOPHY,
-//                5.0
-//        );
-//
-//        bookmarks[2][3] = BookmarkManager.getInstacne().createBooks(
-//                4003,
-//                "Head First Design Patterns",
-//                "unknown",
-//                2004,
-//                "O'Reilly Media",
-//                new String[]{"Eric Freeman", "Bert Bates", "Kathy Sierra", "Elisabeth Robson"},
-//                BookGenre.TECHNICAL,
-//                4.5
-//        );
-//
-//        bookmarks[2][4] = BookmarkManager.getInstacne().createBooks(
-//                4004,
-//                "Effective Java Programming Language Guide",
-//                "unknown",
-//                2007,
-//                "Prentice Hall",
-//                new String[]{"Joshua Bloch"},
-//                BookGenre.TECHNICAL,
-//                4.9
-//        );
     }
-
-
-
 
     private static void loadWeblinks() {
         String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
@@ -206,43 +89,6 @@ public class DataStore {
             String[] values = row.split("\t");
             bookmarks[0][colNum++] = BookmarkManager.getInstacne().createWeblinks(Long.parseLong(values[0]), values[1], values[2], values[3]/*, values[4]*/);
         }
-
-
-
-//        bookmarks[0][0] = BookmarkManager.getInstacne().createWeblinks(
-//                2000,
-//                "Taming Tiger Part 2",
-//                "http://www.javaworld.com/article/2072759/core-java/taming-tiger--part-2.html",
-//                "http://www.javaworld.com"
-//        );
-//
-//        bookmarks[0][1] = BookmarkManager.getInstacne().createWeblinks(
-//                2001,
-//                "How do I import a pre-existing Java project into Eclipse and get up and running?",
-//                "http://stackoverflow.com/questions/142863/how-do-i-import-a-pre-existing-java-project-into-eclipse-and-get-up-and-running",
-//                "http://www.stackoverflow.com"
-//        );
-//
-//        bookmarks[0][2] = BookmarkManager.getInstacne().createWeblinks(
-//                2002,
-//                "Interface vs Abstract Class",
-//                "http://mindprod.com/jgloss/interfacevsabstract.html",
-//                "http://mindprod.com"
-//        );
-//
-//        bookmarks[0][3] = BookmarkManager.getInstacne().createWeblinks(
-//                2003,
-//                "NIO tutorial by Greg Travis",
-//                "http://cs.brown.edu/courses/cs161/papers/j-nio-ltr.pdf",
-//                "http://cs.brown.edu"
-//        );
-//
-//        bookmarks[0][4] = BookmarkManager.getInstacne().createWeblinks(
-//                2004,
-//                "Virtual Hosting and Tomcat",
-//                "http://tomcat.apache.org/tomcat-6.0-doc/virtual-hosting-howto.html",
-//                "http://tomcat.apache.org"
-//        );
     }
 
     public static void add(UserBookmark userBookmark) {
