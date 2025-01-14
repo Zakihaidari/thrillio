@@ -7,6 +7,7 @@ import com.semanticsquare.thrillio.util.IOUtil;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class BookmarkManager {
 
@@ -62,7 +63,7 @@ public class BookmarkManager {
         return webLinks;
     }
 
-    public Bookmark[][] getBookmarks(){
+    public List<List<Bookmark>> getBookmarks(){
         return dao.getBookmarks();
     }
 

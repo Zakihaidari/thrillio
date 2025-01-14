@@ -11,6 +11,9 @@ import com.semanticsquare.thrillio.managers.BookmarkManager;
 import com.semanticsquare.thrillio.managers.UserManager;
 import com.semanticsquare.thrillio.util.IOUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataStore {
 
     public static final int USER_BOOKMARK_LIMIT = 5;
@@ -20,15 +23,15 @@ public class DataStore {
     private static int bookmarkIndex;
 
 
-    private static User [] users = new User[TOTAL_USER_COUNT];
-    private static Bookmark [][] bookmarks = new Bookmark[BOOKMARK_TYPES_COUNT][BOOKMARK_COUNT_PER_TYPE];
-    private static UserBookmark[] userBookmarks = new UserBookmark[TOTAL_USER_COUNT * USER_BOOKMARK_LIMIT];
+    private static List<User> users = new ArrayList<>();;
+    private static List<List<Bookmark>> bookmarks = new ArrayList<>();
+    private static List<UserBookmark> userBookmarks = new ArrayList<>();
 
-    public static User[] getUsers() {
+    public static List<User> getUsers() {
         return users;
     }
 
-    public static Bookmark[][] getBookmarks() {
+    public static List<List<Bookmark>> getBookmarks() {
         return bookmarks;
     }
 
@@ -41,9 +44,10 @@ public class DataStore {
 
     private static void loadUsers() {
 
-        String [] data = new String[TOTAL_USER_COUNT];
+//        String [] data = new String[TOTAL_USER_COUNT];
+        List<String> data = new ArrayList<>();
         IOUtil.read(data, "User");
-        int rowNum = 0;
+
         for (String row: data){
             String [] values = row.split("\t");
 
@@ -53,46 +57,56 @@ public class DataStore {
             }else if(values[5].equals("t")){
                 gender = Gender.TRANSGENDER;
             }
-            users[rowNum++] = UserManager.getInstance().createUser(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], gender, values[6]);
+            User user = UserManager.getInstance().createUser(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], gender, values[6]);
+            users.add(user);
         }
     }
 
 
     private static void loadMovies() {
-        String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> data = new ArrayList<>();
         IOUtil.read(data, "Movie");
-        int colNum = 0;
+
+        List<Bookmark> bookmarkList = new ArrayList<>();
         for (String row : data) {
             String[] values = row.split("\t");
             String[] cast = values[3].split(",");
             String[] directors = values[4].split(",");
-            bookmarks[1][colNum++] = BookmarkManager.getInstacne().createMovies(Long.parseLong(values[0]), values[1], "", Integer.parseInt(values[2]), cast, directors, values[5], Double.parseDouble(values[6])/*, values[7]*/);
+            Bookmark bookmark = BookmarkManager.getInstacne().createMovies(Long.parseLong(values[0]), values[1], "", Integer.parseInt(values[2]), cast, directors, values[5], Double.parseDouble(values[6])/*, values[7]*/);
+            bookmarkList.add(bookmark);
         }
+        bookmarks.add(bookmarkList);
     }
 
     private static void loadBooks() {
-        String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> data = new ArrayList<>();
+
         IOUtil.read(data, "Book");
-        int colNum = 0;
+
+        List<Bookmark> bookmarkList = new ArrayList<>();
         for (String row : data) {
             String[] values = row.split("\t");
             String[] authors = values[4].split(",");
-            bookmarks[2][colNum++] = BookmarkManager.getInstacne().createBooks(Long.parseLong(values[0]), values[1], Integer.parseInt(values[2]), values[3], authors, values[5], Double.parseDouble(values[6])/*, values[7]*/ );
+            Bookmark bookmark = BookmarkManager.getInstacne().createBooks(Long.parseLong(values[0]), values[1], Integer.parseInt(values[2]), values[3], authors, values[5], Double.parseDouble(values[6])/*, values[7]*/ );
+            bookmarkList.add(bookmark);
         }
+        bookmarks.add(bookmarkList);
     }
 
     private static void loadWeblinks() {
-        String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+        List<String> data = new ArrayList<>();
+
         IOUtil.read(data, "WebLink");
-        int colNum = 0;
+        List<Bookmark> bookmarkList = new ArrayList<>();
         for (String row : data) {
             String[] values = row.split("\t");
-            bookmarks[0][colNum++] = BookmarkManager.getInstacne().createWeblinks(Long.parseLong(values[0]), values[1], values[2], values[3]/*, values[4]*/);
+            Bookmark bookmark = BookmarkManager.getInstacne().createWeblinks(Long.parseLong(values[0]), values[1], values[2], values[3]/*, values[4]*/);
+            bookmarkList.add(bookmark);
         }
+        bookmarks.add(bookmarkList);
     }
 
     public static void add(UserBookmark userBookmark) {
-        userBookmarks[bookmarkIndex] = userBookmark;
-        bookmarkIndex++;
+        userBookmarks.add(userBookmark);
     }
 }

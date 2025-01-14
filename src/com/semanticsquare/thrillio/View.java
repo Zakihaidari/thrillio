@@ -7,15 +7,17 @@ import com.semanticsquare.thrillio.entities.Bookmark;
 import com.semanticsquare.thrillio.entities.User;
 import com.semanticsquare.thrillio.partner.Shareable;
 
+import java.util.List;
+
 public class View {
 
-    public static void browese(User user, Bookmark[][] bookmarks){
+    public static void browese(User user, List<List<Bookmark>> bookmarks){
         System.out.println("\n" + user.getEmail() + " is browsing items");
         int bookmarkCount = 0;
-        for (Bookmark [] bookmarkList : bookmarks) {
+        for (List<Bookmark> bookmarkList : bookmarks) {
             for (Bookmark bookmark : bookmarkList) {
                 //BookMarking....
-                if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
+               // if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
                     boolean isBookmark = getBookmarkDecision(bookmark);
                     if (isBookmark) {
                         bookmarkCount++;
@@ -23,7 +25,7 @@ public class View {
 
                         System.out.println("New Item Bookmarked -- " + bookmark);
                     }
-                }
+               // }
                 if (user.getUserType().equals(UserType.EDITOR)
                         || user.getUserType().equals(UserType.CHIEF_EDITOR) ){
                     if (bookmark.isKidFriendlyEligible() && bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN)){

@@ -3,6 +3,8 @@ package com.semanticsquare.thrillio.managers;
 import com.semanticsquare.thrillio.dao.UserDao;
 import com.semanticsquare.thrillio.entities.User;
 
+import java.util.List;
+
 public class UserManager {
     private static  UserManager instance = new UserManager();
 
@@ -26,7 +28,7 @@ public class UserManager {
         return user;
     }
 
-    public User [] getUsers(){
+    public List<User>  getUsers(){
         return dao.getUsers();
     }
 }
